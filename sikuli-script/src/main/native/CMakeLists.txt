@@ -5,7 +5,7 @@ ENABLE_LANGUAGE(C)
 
 IF(LINUX)
    # -O2/O3 seems incorrectly optimizes some SWIG generated code
-   SET(CMAKE_CXX_FLAGS_RELEASE "-O1 -std=c++11 -stdlib=libc++")
+   SET(CMAKE_CXX_FLAGS_RELEASE "-O1")
 ENDIF(LINUX)
 
 SET(CMAKE_VERBOSE_MAKEFILE 1)
