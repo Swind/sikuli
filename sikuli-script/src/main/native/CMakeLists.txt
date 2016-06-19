@@ -5,7 +5,7 @@ ENABLE_LANGUAGE(C)
 
 IF(LINUX)
    # -O2/O3 seems incorrectly optimizes some SWIG generated code
-   SET(CMAKE_CXX_FLAGS_RELEASE "-O1")
+   SET(CMAKE_CXX_FLAGS_RELEASE "-O1 -std=c++11 -stdlib=libc++")
 ENDIF(LINUX)
 
 SET(CMAKE_VERBOSE_MAKEFILE 1)
@@ -89,7 +89,6 @@ ENDIF()
 SET(BUILD_TARGETS
    #TODO move VDictProxy to swig
    VDictProxy
-   VNCNative
 )
 
 IF(WIN32)
@@ -138,13 +137,6 @@ ADD_LIBRARY(VDictProxy SHARED
    org_sikuli_script_VDictProxy.h
 )
 TARGET_LINK_LIBRARIES(VDictProxy ${OpenCV_LIBS})
-
-ADD_LIBRARY(VNCNative SHARED
-   VNCNative.c
-   VNCNative.h
-)
-TARGET_LINK_LIBRARIES(VNCNative -lvncclient)
-
 
 ## SWIG: generate a JNI wrapper 
 SET_SOURCE_FILES_PROPERTIES(vision.i PROPERTIES CPLUSPLUS ON)

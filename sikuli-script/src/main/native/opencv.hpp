@@ -9,5 +9,6 @@
 #include<cv.h>
 #include<cxcore.h>
 #include<highgui.h>
+#include<opencv2/nonfree/features2d.hpp>
 
 #endif

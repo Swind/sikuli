@@ -48,15 +48,6 @@ public class Screen extends Region implements Observer, IScreen {
       }
    }
 
-   public static int connectVNC(String[] args,String password)  {
-      VNCRobot vnc=new VNCRobot(args,password);
-      _robots.clear(); // have to clear, this will overlap the main screen and find() will look for the screen by coords.
-      int i=_robots.size();
-      _robots.add(vnc);
-      _primaryScreen=i;
-      return i;
-   }
-
    public static int getNumberScreens(){
 //      return _gdev.length;
       return _robots.size();

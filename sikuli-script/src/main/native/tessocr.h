@@ -17,10 +17,6 @@
 #include "opencv.hpp"
 #include "find-result.h"
 
-
-using namespace std;
-
-
 class OCRRect {
   
 public:
@@ -56,7 +52,7 @@ class OCRWord : public OCRRect {
 public:
    void add(const OCRChar& ocr_char);
    
-   string str();
+   std::string str();
    
     void clear();
    
@@ -64,12 +60,12 @@ public:
    
    bool isValidWord();
    
-   string getString();
+   std::string getString();
    
-   vector<OCRChar> getChars();
+   std::vector<OCRChar> getChars();
 
 private:   
-   vector<OCRChar> ocr_chars_;
+   std::vector<OCRChar> ocr_chars_;
 };
 
 class OCRLine : public OCRRect{
@@ -77,23 +73,23 @@ public:
    
    void addWord(OCRWord& word);
 
-   string getString();
-   vector<OCRWord> getWords();
+   std::string getString();
+   std::vector<OCRWord> getWords();
 
 private:   
    
-   vector<OCRWord> ocr_words_;
+   std::vector<OCRWord> ocr_words_;
 };
 
 class OCRParagraph : public OCRRect{
 public:  
    
    void addLine(OCRLine& line);
-   vector<OCRLine> getLines();
+   std::vector<OCRLine> getLines();
    
 private:
    
-   vector<OCRLine> ocr_lines_;
+   std::vector<OCRLine> ocr_lines_;
    
 };
 
@@ -102,37 +98,37 @@ class OCRText : public OCRRect{
 public:   
    void addParagraph(OCRParagraph& ocr_paragraph);
    
-   typedef vector<OCRWord>::iterator iterator;
+   typedef std::vector<OCRWord>::iterator iterator;
    
    void save(const char* filename);
    void save_with_location(const char* filename);
    
-   vector<string> getLineStrings();
-   vector<string> getWordStrings();
+   std::vector<std::string> getLineStrings();
+   std::vector<std::string> getWordStrings();
 
-   string getString();
+   std::string getString();
    
-   vector<OCRWord> getWords();
-   vector<OCRParagraph> getParagraphs();
+   std::vector<OCRWord> getWords();
+   std::vector<OCRParagraph> getParagraphs();
 
 private:
    
-   vector<OCRParagraph> ocr_paragraphs_;
+   std::vector<OCRParagraph> ocr_paragraphs_;
    
 };
 
 class OCR {
 
 public:
-   static vector<OCRChar> recognize(const unsigned char* imagedata,
+   static std::vector<OCRChar> recognize(const unsigned char* imagedata,
                                     int width, int height, int bpp);
    
    static OCRText recognize(cv::Mat mat);
-   static string recognize_as_string(const cv::Mat& mat);
+   static std::string recognize_as_string(const cv::Mat& mat);
    
-   static vector<FindResult> find_word(const cv::Mat& mat, string word, bool is_find_one = true);
+   static std::vector<FindResult> find_word(const cv::Mat& mat, std::string word, bool is_find_one = true);
    
-   static vector<FindResult> find_phrase(const cv::Mat& mat, vector<string> words, bool is_find_one = true);   
+   static std::vector<FindResult> find_phrase(const cv::Mat& mat, std::vector<std::string> words, bool is_find_one = true);   
    
    static OCRText recognize_screenshot(const char* screenshot_filename);
    

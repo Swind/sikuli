@@ -3,7 +3,7 @@
  * Released under the MIT License.
  *
  */
-#ifndef _SIKULU_DEBUG_H
+#ifndef _SIKULI_DEBUG_H
 #define _SIKULI_DEBUG_H
 
 
@@ -34,7 +34,7 @@ namespace sikuli{
            std::basic_ios<cT, traits>(&m_sbuf), 
            std::basic_ostream<cT, traits>(&m_sbuf) 
         { 
-           init(&m_sbuf); 
+           //init(&m_sbuf); 
         } 
 
      private: 

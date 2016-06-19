@@ -1,7 +1,4 @@
-/*
- * Copyright 2010-2011, Sikuli.org
- * Released under the MIT License.
- *
+/* Copyright 2010-2011, Sikuli.org Released under the MIT License.  
  */
 
 #include "imgdb.h"
@@ -11,12 +8,12 @@ typedef INT32 int32_t;
 #endif
 
 void
-ImageRecord::write(ostream& output_stream){   
+ImageRecord::write(std::ostream& output_stream){   
    output_stream.write((char *) this, sizeof(class ImageRecord));
 }
 
 void
-ImageRecord::read(istream& input_stream){
+ImageRecord::read(std::istream& input_stream){
    input_stream.read((char *) this, sizeof(class ImageRecord));
 }
 
@@ -168,7 +165,7 @@ Database::insert_file(const char* filename, int screenshot_id){
       
       fout_loc << r.x << " " << r.y << " " << r.width << " " << r.height << " ";
       fout_loc << "ui" << r.id;
-      fout_loc << endl;
+      fout_loc << std::endl;
    }
    
    //fout << endl;
@@ -286,7 +283,7 @@ Database::create_image_records_from_blobs(const Mat& src, const vector<Blob> ima
 //}
 
 void
-Database::write(ostream& stream){   
+Database::write(std::ostream& stream){   
    
    int32_t num_records = _image_records.size();
    stream.write((char *)(&num_records), sizeof(int32_t));
@@ -297,7 +294,7 @@ Database::write(ostream& stream){
 }
 
 void
-Database::read(istream& stream){
+Database::read(std::istream& stream){
    int32_t num_records;
    stream.read((char *)(&num_records), sizeof(int32_t));
    

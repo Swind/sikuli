@@ -11,8 +11,11 @@
 #include "tessocr.h"
 #include "sikuli-debug.h"
 
-using namespace std;
 using namespace sikuli;
+
+using std::string;
+using std::vector;
+using std::endl;
 
 #ifdef WIN32
    #include "baseapi.h"
@@ -26,11 +29,11 @@ static char* mytesseract(const unsigned char* imagedata,
    
    int bytes_per_pixel = bpp / 8;        
    int bytes_per_line = COMPUTE_IMAGE_XDIM(width,bpp);
-   char* text = TessBaseAPI::TesseractRectBoxes(imagedata,
+   tesseract::TessBaseAPI baseapi;
+   char* text = baseapi.TesseractRect(imagedata,
                                                 bytes_per_pixel,
                                                 bytes_per_line, 0, 0,
                                                 width,
-                                                height,
                                                 height);
    return text;
 }
@@ -40,7 +43,8 @@ static char* mytesseract_str(const unsigned char* imagedata,
 
    int bytes_per_pixel = bpp / 8;
    int bytes_per_line = COMPUTE_IMAGE_XDIM(width,bpp);
-   char* text = TessBaseAPI::TesseractRect(imagedata,
+   tesseract::TessBaseAPI baseapi;
+   char* text = baseapi.TesseractRect(imagedata,
                                                 bytes_per_pixel,
                                                 bytes_per_line, 0, 0,
                                                 width,
@@ -113,7 +117,8 @@ OCRWord::clear() {
 
 bool
 OCRWord::isValidWord(){
-   return TessBaseAPI::IsValidWord(str().c_str());
+   tesseract::TessBaseAPI baseapi;
+   return baseapi.IsValidWord(str().c_str());
 }
 
 void
@@ -186,7 +191,7 @@ OCRText::save_with_location(const char* filename){
    
    vector<OCRWord> words = getWords();
    
-   ofstream of(filename);
+   std::ofstream of(filename);
    
    for (vector<OCRWord>::iterator it = words.begin();
         it != words.end(); ++it){
@@ -383,7 +388,8 @@ OCR::init(const char* datapath){
    //we have to use setenv instead.
    setenv("TESSDATA_PREFIX", datapath, 1);
 #endif
-   int ret = TessBaseAPI::InitWithLanguage(datapath,outputbase,lang,NULL,numeric_mode,0,0);
+   tesseract::TessBaseAPI baseapi;
+   int ret = baseapi.Init(datapath,lang);
    //cout << (ret==0?"done":"failed") << endl;
 
    isInitialized = true;   
@@ -848,7 +854,7 @@ OCR::recognize(const unsigned char* imagedata,
    
    if (text){
       
-      stringstream str(text);
+      std::stringstream str(text);
       string ch;
       int x0,y0,x1,y1;
       while (str >> ch >> x0 >> y0 >> x1 >> y1){    

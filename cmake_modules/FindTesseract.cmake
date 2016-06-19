@@ -20,7 +20,7 @@ find_path(Tesseract_INCLUDE_DIR
 
 # Finally the library itself
 find_library(Tesseract_LIBRARY
-  NAMES tesseract_full
+  NAMES tesseract
   HINTS "/usr/lib"
         "/usr/local/lib"
         ${Tesseract_PKGCONF_LIBRARY_DIRS}
